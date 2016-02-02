@@ -29,61 +29,65 @@ $(function () {
     }
 
     // Helper function to print chat message to the chat window
-    function printMessage(fromUser, message) {
+    function printMessage(fromUser, date, message) {
         var $user = $('<span class="username">').text(fromUser + ':');
         if (fromUser === username) {
             $user.addClass('me');
         }
+        var $date = $('<span class="date">').text(moment(date).format("MMM Do YY @ HH:mm:ss"));
         var $message = $('<span class="message">').text(message);
         var $container = $('<div class="message-container">');
+        $container.append($date).append('<br/>');
         $container.append($user).append($message);
         $chatWindow.append($container);
         $chatWindow.scrollTop($chatWindow[0].scrollHeight);
     }
 
-    // Alert the user they have been assigned a random username
-    print('Logging in...');
+    setTimeout(function(){ window.joinChannel('general'); }, 1000);
+    
+    window.joinChannel = function(chosenChannel){
+        // clear div
+        $chatWindow.html("");
+        
+        print('Logging in...');
+        
+        $.getJSON('/token', {
+            identity: username,
+            device: 'browser'
+        }, function (data) {
+            // Alert the user they have been assigned a random username
+            username = data.identity;
 
-    // Get an access token for the current user, passing a username (identity)
-    // and a device ID - for browser-based apps, we'll always just use the 
-    // value "browser"
-    $.getJSON('/token', {
-        identity: username,
-        device: 'browser'
-    }, function (data) {
-        // Alert the user they have been assigned a random username
-        username = data.identity;
-        print('You have been assigned a random username of: '
-            + '<span class="me">' + username + '</span>', true);
+            // Initialize the IP messaging client
+            accessManager = new Twilio.AccessManager(data.token);
+            messagingClient = new Twilio.IPMessaging.Client(accessManager);
 
-        // Initialize the IP messaging client
-        accessManager = new Twilio.AccessManager(data.token);
-        messagingClient = new Twilio.IPMessaging.Client(accessManager);
-
-        // Get the general chat channel, which is where all the messages are
-        // sent in this simple application
-        print('Attempting to join "general" chat channel...');
-        var promise = messagingClient.getChannelByUniqueName('general');
-        promise.then(function (channel) {
-            generalChannel = channel;
-            if (!generalChannel) {
-                // If it doesn't exist, let's create it
-                messagingClient.createChannel({
-                    uniqueName: 'general',
-                    friendlyName: 'General Chat Channel'
-                }).then(function (channel) {
-                    console.log('Created general channel:');
-                    console.log(channel);
-                    generalChannel = channel;
+            // Get the general chat channel, which is where all the messages are
+            // sent in this simple application
+            print('Attempting to join "' + chosenChannel + '" chat channel...');
+            var promise = messagingClient.getChannelByUniqueName(chosenChannel);
+            promise.then(function (channel) {
+                generalChannel = channel;
+                if (!generalChannel) {
+                    // If it doesn't exist, let's create it
+                    messagingClient.createChannel({
+                        uniqueName: chosenChannel,
+                        friendlyName: chosenChannel + ' Chat Channel'
+                    }).then(function (channel) {
+                        console.log('Created '+ chosenChannel + ' channel:');
+                        console.log(channel);
+                        generalChannel = channel;
+                        setupChannel();
+                    });
+                } else {
+                    console.log('Found' + chosenChannel + ' channel:');
+                    console.log('Found' + generalChannel.Sid + ' channel:');
+                    console.log(generalChannel);
                     setupChannel();
-                });
-            } else {
-                console.log('Found general channel:');
-                console.log(generalChannel);
-                setupChannel();
-            }
+                }
+            });
         });
-    });
+    }
 
     // Set up channel after it has been found
     function setupChannel() {
@@ -91,13 +95,21 @@ $(function () {
         generalChannel.join().then(function (channel) {
             print('Joined channel as '
                 + '<span class="me">' + username + '</span>.', true);
+                
+            var promise = generalChannel.getMessages();
+            promise.then(function (messages){
+                for (var i=0; i < messages.length; i++){
+                    printMessage(messages[i].author, messages[i].timestamp, messages[i].body);
+                }
+            });
         });
 
         // Listen for new messages sent to the channel
         generalChannel.on('messageAdded', function (message) {
-            printMessage(message.author, message.body);
+            printMessage(message.author, message.timestamp, message.body);
         });
     }
+
 
     // Send a new message to the general channel
     var $input = $('#chat-input');

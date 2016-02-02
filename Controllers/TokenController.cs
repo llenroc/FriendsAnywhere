@@ -1,10 +1,7 @@
 using System;
-using System.Configuration;
-using Faker;
-using JWT;
 using Microsoft.AspNet.Mvc;
-using Twilio;
 using Twilio.Auth;
+using ipm_quickstart_csharp_mac.Controllers;
 
 namespace TwilioIpMessaging.Controllers
 {
@@ -20,7 +17,7 @@ namespace TwilioIpMessaging.Controllers
             var IpmServiceSid = Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID");
 
             // Create a random identity for the client
-            var Identity = NameFaker.FirstName() + "" + NameFaker.LastName();
+            var Identity = St.RemoveSpecialCharacters(St.MyName);
 
             // Create an Access Token generator
             var Token = new AccessToken(AccountSid, ApiKey, ApiSecret);

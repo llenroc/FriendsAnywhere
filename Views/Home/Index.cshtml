@@ -1,3 +1,5 @@
+@model IEnumerable<ipm_quickstart_csharp_mac.Models.Friend>
+
 <header>
     <a href="https://www.twilio.com/docs/api/ip-messaging/guides/quickstart-js"
        target="_blank">
@@ -5,6 +7,16 @@
         <i class="fa fa-fw fa-external-link"></i>
     </a>
 </header>
+
+<div id="selector">
+    <select name="friend" onchange="joinChannel(this.options[this.selectedIndex].value)">
+        <option value="general">General</option>
+        @foreach (var item in Model) {
+            <option value="@item.Number">@item.Name</option>
+        }
+    </select> 
+    @Html.ActionLink("Create New", "Create", new { controller = "Friend" })
+</div>
 
 <section>
     <div id="messages"></div>

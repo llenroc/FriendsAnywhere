@@ -24,11 +24,16 @@
     "Twilio": "4.4.1",
     "Twilio.Auth": "1.1.0",
     "JWT": "1.3.4",
-    "Faker": "1.2"
+    "Twilio.TwiML": "3.4.0",
+    "Twilio.IpMessaging": "1.1.1",
+    "EntityFramework.Sqlite": "7.0.0-rc1-final",
+    "EntityFramework.Sqlite.Design": "7.0.0-rc1-final",
+    "EntityFramework.Commands": "7.0.0-rc1-final"
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel"
+    "web": "Microsoft.AspNet.Server.Kestrel",
+    "ef": "EntityFramework.Commands"
   },
 
   "frameworks": {
