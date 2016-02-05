@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace ipm_quickstart_csharp_mac.Controllers
+namespace ipm_quickstart_csharp_mac.Extensions
 {
-    public static class St
+    public static class StringExtensions
     {
         public readonly static string MyNumber = "[YOUR_TWILIO_NUMBER]";
         public readonly static string MyName = "YourName";

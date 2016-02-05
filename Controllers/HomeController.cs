@@ -4,6 +4,7 @@ using ipm_quickstart_csharp_mac.Models;
 using Microsoft.AspNet.Mvc;
 using Twilio;
 using Twilio.IpMessaging;
+using ipm_quickstart_csharp_mac.Extensions;
 
 namespace ipm_quickstart_csharp_mac.Controllers
 {
@@ -29,7 +30,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
                 var channelSid = _db.Friends.FirstOrDefault(s => s.ChannelSid == To).Number;
                 
                 Message message = client.SendMessage(
-                    St.MyNumber,
+                    StringExtensions.MyNumber,
                     channelSid,
                     Body
                 );
@@ -53,7 +54,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
                 var message = client.CreateMessage(
                     Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"),
                     channelSid,
-                    St.RemoveSpecialCharacters(From),
+                    StringExtensions.RemoveSpecialCharacters(From),
                     Body
                 );
                     

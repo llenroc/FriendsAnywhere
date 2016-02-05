@@ -3,6 +3,7 @@ using System.Linq;
 using ipm_quickstart_csharp_mac.Models;
 using Microsoft.AspNet.Mvc;
 using Twilio.IpMessaging;
+using ipm_quickstart_csharp_mac.Extensions;
 
 namespace ipm_quickstart_csharp_mac.Controllers
 {
@@ -50,7 +51,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
                     }
                     else{
                         // Create a user
-                        var user = _client.CreateUser(Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"), St.RemoveSpecialCharacters(friend.Number));
+                        var user = _client.CreateUser(Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"), StringExtensions.RemoveSpecialCharacters(friend.Number));
                         if (user.RestException!=null){
                             return Content(user.RestException.Message);
                         }

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNet.Mvc;
 using Twilio.Auth;
-using ipm_quickstart_csharp_mac.Controllers;
+using ipm_quickstart_csharp_mac.Extensions;
 
 namespace TwilioIpMessaging.Controllers
 {
@@ -17,7 +17,7 @@ namespace TwilioIpMessaging.Controllers
             var IpmServiceSid = Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID");
 
             // Create a random identity for the client
-            var Identity = St.RemoveSpecialCharacters(St.MyName);
+            var Identity = StringExtensions.RemoveSpecialCharacters(StringExtensions.MyName);
 
             // Create an Access Token generator
             var Token = new AccessToken(AccountSid, ApiKey, ApiSecret);
