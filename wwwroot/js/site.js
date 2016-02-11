@@ -101,15 +101,16 @@ $(function () {
                 for (var i=0; i < messages.length; i++){
                     printMessage(messages[i].author, messages[i].timestamp, messages[i].body);
                 }
+            }).catch(function(e){
+                console.log(e)
+            });
+
+            // Listen for new messages sent to the channel
+            generalChannel.on('messageAdded', function (message) {
+                printMessage(message.author, message.timestamp, message.body);
             });
         });
-
-        // Listen for new messages sent to the channel
-        generalChannel.on('messageAdded', function (message) {
-            printMessage(message.author, message.timestamp, message.body);
-        });
     }
-
 
     // Send a new message to the general channel
     var $input = $('#chat-input');
