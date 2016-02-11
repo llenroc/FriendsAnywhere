@@ -19,7 +19,7 @@ namespace ipm_quickstart_csharp_mac.Models
         [Display(Name = "Friend Name")]
         public string Name { get; set; }
         [Display(Name = "Phone Number")]
-        public string Number { get; set; }
+        public string PhoneNumber { get; set; }
         [ScaffoldColumn(false)] 
         public string ChannelSid { get; set; }
         [ScaffoldColumn(false)] 

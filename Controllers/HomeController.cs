@@ -27,7 +27,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
             
             using (var _db = new FriendsContext())
             {
-                var channelSid = _db.Friends.FirstOrDefault(s => s.ChannelSid == To).Number;
+                var channelSid = _db.Friends.FirstOrDefault(s => s.ChannelSid == To).PhoneNumber;
                 
                 Message message = client.SendMessage(
                     StringExtensions.MyNumber,
@@ -49,7 +49,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
         {
             var client = new IpMessagingClient(Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"), Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN"));
             using (var _db = new FriendsContext()){
-                var channelSid = _db.Friends.FirstOrDefault(s => s.Number == From).ChannelSid;
+                var channelSid = _db.Friends.FirstOrDefault(s => s.PhoneNumber == From).ChannelSid;
             
                 var message = client.CreateMessage(
                     Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"),

@@ -12,7 +12,7 @@
     <select name="friend" onchange="joinChannel(this.options[this.selectedIndex].value)">
         <option value="general">General</option>
         @foreach (var item in Model) {
-            <option value="@item.Number">@item.Name</option>
+            <option value="@item.PhoneNumber">@item.Name</option>
         }
     </select> 
     @Html.ActionLink("Create New", "Create", new { controller = "Friend" })

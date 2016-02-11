@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
 using ipm_quickstart_csharp_mac.Models;
 
-namespace FriendsEverywhere.Migrations
+namespace FriendsAnywhere.Migrations
 {
     [DbContext(typeof(FriendsContext))]
     partial class FriendsContextModelSnapshot : ModelSnapshot
@@ -24,7 +24,7 @@ namespace FriendsEverywhere.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("UserSid");
 

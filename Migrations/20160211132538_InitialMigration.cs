@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Data.Entity.Migrations;
 
-namespace FriendsEverywhere.Migrations
+namespace FriendsAnywhere.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -16,7 +16,7 @@ namespace FriendsEverywhere.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ChannelSid = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Number = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     UserSid = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

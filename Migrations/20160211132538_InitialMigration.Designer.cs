@@ -5,10 +5,10 @@ using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
 using ipm_quickstart_csharp_mac.Models;
 
-namespace FriendsEverywhere.Migrations
+namespace FriendsAnywhere.Migrations
 {
     [DbContext(typeof(FriendsContext))]
-    [Migration("20160202153728_InitialMigration")]
+    [Migration("20160211132538_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace FriendsEverywhere.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("UserSid");
 
