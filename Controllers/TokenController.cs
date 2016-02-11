@@ -17,7 +17,7 @@ namespace TwilioIpMessaging.Controllers
             var IpmServiceSid = Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID");
 
             // Create a random identity for the client
-            var Identity = StringExtensions.RemoveSpecialCharacters(StringExtensions.MyName);
+            var Identity = StringExtensions.MyName.RemoveSpecialCharacters();
 
             // Create an Access Token generator
             var Token = new AccessToken(AccountSid, ApiKey, ApiSecret);

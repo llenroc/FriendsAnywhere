@@ -51,7 +51,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
                     }
                     else{
                         // Create a user
-                        var user = _client.CreateUser(Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"), StringExtensions.RemoveSpecialCharacters(friend.Number));
+                        var user = _client.CreateUser(Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"), friend.Number.RemoveSpecialCharacters());
                         if (user.RestException!=null){
                             return Content(user.RestException.Message);
                         }

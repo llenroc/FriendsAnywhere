@@ -54,7 +54,7 @@ namespace ipm_quickstart_csharp_mac.Controllers
                 var message = client.CreateMessage(
                     Environment.GetEnvironmentVariable("TWILIO_IPM_SERVICE_SID"),
                     channelSid,
-                    StringExtensions.RemoveSpecialCharacters(From),
+                    From.RemoveSpecialCharacters(),
                     Body
                 );
                     
